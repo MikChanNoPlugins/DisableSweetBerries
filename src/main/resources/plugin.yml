@@ -1,0 +1,15 @@
+name: MikChanNoDisableSweetBerries
+version: "${version}"
+
+authors: [ "George Endo (wtlgo / MikChan)" ]
+description: Disables Sweet Berries
+website: https://github.com/MikChanNoPlugins
+
+prefix: MCnDS
+main: dev.mikchan.mcnp.disablesweetberries.DisableSweetBerriesPlugin
+api-version: 1.16
+
+load: STARTUP
+
+libraries:
+  - org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10

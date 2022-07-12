@@ -3,8 +3,31 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.7.10'
 }
 
+
+if (hasProperty('buildScan')) {
+    buildScan {
+        termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+        termsOfServiceAgree = 'yes'
+    }
+}
+
 group = 'dev.mikchan.mcnp'
 version = '0.0.1'
+
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+def localProperties = new Properties()
+def propertiesFile = rootProject.file('local.properties')
+if (propertiesFile.exists()) {
+    localProperties.load(new FileInputStream(propertiesFile))
+}
+
+if (file("local.gradle").exists()) {
+    apply from: "local.gradle"
+}
 
 repositories {
     mavenCentral()
@@ -59,22 +82,4 @@ compileTestKotlin {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-}
-
-if (hasProperty('buildScan')) {
-    buildScan {
-        termsOfServiceUrl = 'https://gradle.com/terms-of-service'
-        termsOfServiceAgree = 'yes'
-    }
-}
-
-compileJava.options.encoding = 'UTF-8'
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-
-def localProperties = new Properties()
-def propertiesFile = rootProject.file('local.properties')
-if (propertiesFile.exists()) {
-    localProperties.load(new FileInputStream(propertiesFile))
 }

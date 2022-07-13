@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.7.10'
+    id 'maven-publish'
 }
 
 
@@ -27,6 +28,29 @@ if (propertiesFile.exists()) {
 
 if (file("local.gradle").exists()) {
     apply from: "local.gradle"
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHub"
+            url = "https://maven.pkg.github.com/MikChanNoPlugins/DisableSweetBerries"
+            credentials {
+                username = localProperties['user'] ?: System.getenv("GITHUB_ACTOR")
+                password = localProperties['key'] ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+
+    publications {
+        gpr(MavenPublication) {
+            groupId = group
+            artifactId = 'disablesweetberries'
+            version = version
+
+            from(components.java)
+        }
+    }
 }
 
 repositories {

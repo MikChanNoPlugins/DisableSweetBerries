@@ -9,8 +9,8 @@ import org.bukkit.event.entity.FoodLevelChangeEvent
 internal class SweetBerriesListener : Listener {
     @EventHandler
     fun onFoodLevelChange(event: FoodLevelChangeEvent) {
-        if (event.item?.data?.itemType != Material.SWEET_BERRIES) return
-        event.foodLevel = event.entity.foodLevel
+        if (event.item?.type != Material.SWEET_BERRIES) return
+        event.isCancelled = true
     }
 
     @EventHandler

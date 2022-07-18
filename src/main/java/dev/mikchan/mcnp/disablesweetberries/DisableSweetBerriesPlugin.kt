@@ -1,6 +1,7 @@
 package dev.mikchan.mcnp.disablesweetberries
 
 import dev.mikchan.mcnp.disablesweetberries.listeners.SweetBerriesListener
+import org.bstats.bukkit.Metrics
 import org.bukkit.event.HandlerList
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -11,8 +12,13 @@ import org.bukkit.plugin.java.JavaPlugin
  */
 @Suppress("unused")
 class DisableSweetBerriesPlugin : JavaPlugin() {
+    companion object {
+        private const val bStatsId = 15814
+    }
+
     override fun onEnable() {
         server.pluginManager.registerEvents(SweetBerriesListener(), this)
+        Metrics(this, bStatsId)
     }
 
     override fun onDisable() {
